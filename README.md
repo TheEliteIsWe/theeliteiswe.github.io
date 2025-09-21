@@ -1,1 +1,2 @@
-# theeliteiswe.github.io
+# The name is Nkosikhona Dlamini, now welcome!
+
