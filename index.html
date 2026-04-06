@@ -4,314 +4,67 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nkosikhona Dlamini</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Karla:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon.png">
-  <style>
-    :root {
-      --bg: #ffffff;
-      --text: #1a1a1a;
-      --subtext: #555;
-      --accent: #00bcd4;
-      --accent-light: rgba(0, 188, 212, 0.18);
-      --line: rgba(0, 188, 212, 0.75);
-      --card-bg: rgba(255,255,255,0.85);
-      --border: rgba(0,0,0,0.08);
-      --link: #1a1a1a;
-      --theme-icon: url('icons/moon.svg');
-    }
-    [data-theme="dark"] {
-      --bg: #0d0d0d;
-      --text: #f0f0f0;
-      --subtext: #aaa;
-      --accent: #00e5ff;
-      --accent-light: rgba(0, 229, 255, 0.1);
-      --line: rgba(0, 229, 255, 0.7);
-      --card-bg: rgba(20,20,20,0.9);
-      --border: rgba(255,255,255,0.08);
-      --link: #f0f0f0;
-      --theme-icon: url('icons/sun.svg');
-    }
- 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
- 
-    html, body {
-      height: 100%;
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: 'Karla', sans-serif;
-      font-weight: 300;
-      transition: background-color 0.4s ease, color 0.4s ease;
-    }
- 
-    /* ── Theme toggle ── */
-    #theme-toggle {
-      position: fixed;
-      top: 14px;
-      left: 18px;
-      z-index: 100;
-      background: none;
-      border: none;
-      cursor: pointer;
-      width: 32px;
-      height: 32px;
-      padding: 0;
-      opacity: 0.7;
-      transition: opacity 0.2s;
-    }
-    #theme-toggle:hover { opacity: 1; }
-    #theme-toggle img { width: 28px; height: 28px; display: block; }
- 
-    /* ── Profile picture (desktop only, top-right) ── */
-    .profile-wrap {
-      position: fixed;
-      top: 14px;
-      right: 18px;
-      z-index: 100;
-    }
-    .profile-pic {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      object-fit: cover;
-      object-position: center top;
-      border: 2px solid var(--accent);
-      box-shadow: 0 2px 12px rgba(0,0,0,0.15);
-      display: block;
-      transition: border-color 0.4s;
-    }
- 
-    /* ── Cyan guide lines ── */
-    .guide-line {
-      position: fixed;
-      top: 40px;
-      bottom: 40px;
-      width: 1.5px;
-      background: var(--line);
-      z-index: 10;
-      pointer-events: none;
-      transition: background 0.4s;
-    }
-    .guide-line-left  { left:  calc((100vw - 660px) / 2 - 18px); }
-    .guide-line-right { right: calc((100vw - 660px) / 2 - 18px); }
- 
-    /* ── Main content ── */
-    .content {
-      max-width: 660px;
-      margin: 0 auto;
-      padding: 80px 24px 100px;
-      text-align: center;
-    }
- 
-    .content h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 600;
-      font-size: clamp(2.2rem, 5vw, 3.4rem);
-      letter-spacing: 0.04em;
-      color: var(--text);
-      margin-bottom: 6px;
-      transition: color 0.4s;
-    }
-    .content .tagline {
-      font-size: 0.95rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 48px;
-      font-weight: 400;
-    }
- 
-    .divider {
-      width: 60px;
-      height: 1px;
-      background: var(--accent);
-      margin: 0 auto 48px;
-      opacity: 0.5;
-    }
- 
-    .bio {
-      font-size: 1.05rem;
-      line-height: 1.85;
-      color: var(--subtext);
-      margin-bottom: 56px;
-      transition: color 0.4s;
-    }
- 
-    /* ── Links / cards ── */
-    .link-group {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      align-items: center;
-    }
-    .card-link {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 14px 28px;
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      text-decoration: none;
-      color: var(--link);
-      font-size: 0.92rem;
-      letter-spacing: 0.06em;
-      width: 100%;
-      max-width: 340px;
-      transition: border-color 0.25s, background 0.25s, color 0.4s;
-      backdrop-filter: blur(4px);
-    }
-    .card-link:hover {
-      border-color: var(--accent);
-      background: var(--accent-light);
-    }
-    .card-link img { width: 22px; height: 22px; flex-shrink: 0; }
-    .card-link span { font-weight: 400; }
- 
-    /* ── Blog teaser ── */
-    .blog-teaser {
-      margin-top: 64px;
-      padding-top: 40px;
-      border-top: 1px solid var(--border);
-      text-align: center;
-    }
-    .blog-teaser h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 400;
-      font-size: 1.6rem;
-      letter-spacing: 0.06em;
-      margin-bottom: 10px;
-      color: var(--text);
-      transition: color 0.4s;
-    }
-    .blog-teaser p {
-      font-size: 0.9rem;
-      color: var(--subtext);
-      margin-bottom: 22px;
-      line-height: 1.7;
-    }
-    .btn-blog {
-      display: inline-block;
-      padding: 11px 32px;
-      border: 1.5px solid var(--accent);
-      border-radius: 4px;
-      text-decoration: none;
-      color: var(--accent);
-      font-size: 0.85rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      font-weight: 500;
-      transition: background 0.25s, color 0.25s;
-    }
-    .btn-blog:hover {
-      background: var(--accent);
-      color: #fff;
-    }
- 
-    /* ── Footer ── */
-    footer {
-      text-align: center;
-      padding: 24px;
-      font-size: 0.78rem;
-      color: var(--subtext);
-      opacity: 0.6;
-    }
- 
-    /* ── Mobile: no profile pic, left-aligned text, no guide lines ── */
-    @media (max-width: 600px) {
-      .profile-wrap { display: none; }
-      .guide-line    { display: none; }
-      .content {
-        text-align: left;
-        padding: 64px 22px 80px;
-      }
-      .divider { margin: 0 0 40px; }
-      .link-group { align-items: flex-start; }
-      .card-link { max-width: 100%; }
-      .blog-teaser { text-align: left; }
-      .btn-blog { display: block; text-align: center; }
-    }
- 
-    /* Hide guide lines when viewport too narrow to show them meaningfully */
-    @media (max-width: 780px) {
-      .guide-line { display: none; }
-    }
-  </style>
+  <link rel="icon" type="image/png" href="/icons/favicon.png">
+
+  <!-- Shared design tokens, guide lines, toggle, typography -->
+  <link rel="stylesheet" href="/css/theme.css">
+  <!-- Home-page-specific: profile pic, bio, card links, blog teaser -->
+  <link rel="stylesheet" href="/css/home.css">
 </head>
 <body>
- 
-  <!-- Theme toggle -->
-  <button id="theme-toggle" aria-label="Toggle theme">
-    <img id="theme-icon" src="icons/moon.svg" alt="Toggle dark/light mode">
+
+  <!-- Theme toggle (top-left) — on every page -->
+  <button id="theme-toggle" aria-label="Toggle day/night mode">
+    <img id="theme-icon" src="/icons/moon.svg" alt="Switch to night mode">
   </button>
- 
-  <!-- Profile picture (desktop) -->
+
+  <!-- Profile picture (top-right) — home page only, hidden on mobile via home.css -->
   <div class="profile-wrap">
-    <img src="profile/IMG_8335.JPG" alt="Nkosikhona Dlamini" class="profile-pic">
+    <img src="/profile/IMG_8335.JPG" alt="Nkosikhona Dlamini" class="profile-pic">
   </div>
- 
-  <!-- Cyan guide lines -->
+
+  <!-- Cyan guide lines (desktop only, hidden on mobile via theme.css) -->
   <div class="guide-line guide-line-left"  aria-hidden="true"></div>
   <div class="guide-line guide-line-right" aria-hidden="true"></div>
- 
-  <!-- Main -->
+
   <main class="content">
     <h1>Nkosikhona Dlamini</h1>
     <p class="tagline">Developer &amp; thinker</p>
     <div class="divider"></div>
- 
+
     <p class="bio">
       Welcome to my space on the internet. I build things with code, think
       in systems, and write about what I find along the way. Based somewhere
       between the terminal and a good idea.
     </p>
- 
+
     <div class="link-group">
-      <a href="resume/NkosikhonaDlaminiCV-2.pdf" target="_blank" class="card-link">
-        <img src="icons/pdf-icon.svg" alt="PDF">
+      <a href="/resume/NkosikhonaDlaminiCV-2.pdf" target="_blank" class="card-link">
+        <img src="/icons/pdf-icon.svg" alt="PDF icon">
         <span>Curriculum Vitae / Resume</span>
       </a>
-      <a href="https://blog.theeliteiswe.github.io" class="card-link">
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
-             stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/>
+      <a href="https://blog.nkosikhonadlamini.xyz" class="card-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor" stroke-width="1.6"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 20h9"/>
+          <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/>
         </svg>
         <span>Blog</span>
       </a>
     </div>
- 
+
     <div class="blog-teaser">
       <h2>From the blog</h2>
       <p>Thoughts on software, craft, and whatever else demands to be written down.</p>
-      <a href="https://blog.theeliteiswe.github.io" class="btn-blog">Read the blog →</a>
+      <a href="https://blog.nkosikhonadlamini.xyz" class="btn-outline">Read the blog →</a>
     </div>
   </main>
- 
-  <footer>© 2025 Nkosikhona Dlamini</footer>
- 
-  <script>
-    const toggle = document.getElementById('theme-toggle');
-    const icon   = document.getElementById('theme-icon');
-    const html   = document.documentElement;
- 
-    // Restore saved preference
-    const saved = localStorage.getItem('theme');
-    if (saved) { html.setAttribute('data-theme', saved); }
-    updateIcon();
- 
-    toggle.addEventListener('click', () => {
-      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      html.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
-      updateIcon();
-    });
- 
-    function updateIcon() {
-      const dark = html.getAttribute('data-theme') === 'dark';
-      icon.src = dark ? 'icons/sun.svg' : 'icons/moon.svg';
-      icon.alt = dark ? 'Switch to day mode' : 'Switch to night mode';
-    }
-  </script>
+
+  <footer>© 2026-27 Nkosikhona Dlamini</footer>
+
+  <!-- Shared theme logic — last so DOM is ready -->
+  <script src="/js/theme.js"></script>
 </body>
 </html>
 
