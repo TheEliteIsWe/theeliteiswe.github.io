@@ -1,0 +1,15 @@
+{
+    "rewries": [
+        {
+	    "source": "/(.*)",
+	    "destination": "/blog/$1",
+	    "has": [
+                {
+		    "type": "host",
+		    "value": "blog.nkosikhonadlamini.xyz"
+		}
+	    ]
+	}
+    ]
+}
+
