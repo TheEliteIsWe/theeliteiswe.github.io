@@ -1,15 +1,12 @@
 {
-    "rewries": [
-        {
-	    "source": "/(.*)",
-	    "destination": "/blog/$1",
-	    "has": [
-                {
-		    "type": "host",
-		    "value": "blog.nkosikhonadlamini.xyz"
-		}
-	    ]
-	}
-    ]
+  "rewrites": [
+    {
+      "source": "/blog",
+      "destination": "/blog/index.html"
+    },
+    {
+      "source": "/blog/:path*",
+      "destination": "/blog/:path*"
+    }
+  ]
 }
-
